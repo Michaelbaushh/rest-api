@@ -33,16 +33,18 @@ def main():
 
     # Iterate over list of dictionaries and print device ID and management IP
     
-    
     if get_resp.ok:
-        print(json.dumps(get_resp.json(), indent=2))
-        
-        '''for device in get_resp.json()['response']:
-            print(f"Description = {device['description'}")'''
+        #print(json.dumps(get_resp.json(), indent=2))
+
+        """for device in get_resp.json()['response']:
+            print(f"Description = {device['description'}")"""
 
 
         for device in get_resp.json()["response"]:
             print(f"ID: {device['id']}  IP: {device['managementIpAddress']}")
+
+            #ids.add(device['id'])
+
     else:
         print(f"Device collection failed with code {get_resp.status_code}")
         print(f"Failure body: {get_resp.text}")
