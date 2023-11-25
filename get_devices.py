@@ -8,7 +8,7 @@ devices from Cisco DNA Center using the REST API.
 
 import requests
 from auth_token import get_token
-
+import json
 
 def main():
     """
@@ -25,14 +25,22 @@ def main():
 
     # Issue HTTP GET request to get list of network devices
     get_resp = requests.get(
-        f"{api_path}/intent/api/v1/network-device", headers=headers
+        f"{api_path}/intent/api/v1/network-device", headers=headers, verify=False
     )
 
     # Debugging output to learn the JSON structure, then quit
     # import json; print(json.dumps(get_resp.json(), indent=2))
 
     # Iterate over list of dictionaries and print device ID and management IP
+    
+    
     if get_resp.ok:
+        print(json.dumps(get_resp.json(), indent=2))
+        
+        '''for device in get_resp.json()['response']:
+            print(f"Description = {device['description'}")'''
+
+
         for device in get_resp.json()["response"]:
             print(f"ID: {device['id']}  IP: {device['managementIpAddress']}")
     else:
